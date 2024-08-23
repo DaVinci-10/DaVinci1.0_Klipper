@@ -7,3 +7,5 @@ This makes 0x, 0y located @front-left of the build plate.
 To keep printer.cfg from being a mile long, the actual printer config file is included [include DaVinci_1_0_printer.cfg] in printer.cfg 
 
 printer.cfg has the Auto-Save area along with [include]'s for additional features.
+
+Files are in config folder
