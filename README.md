@@ -8,7 +8,7 @@ To keep printer.cfg from being a mile long, the actual printer config file is in
 
 printer.cfg has the Auto-Save area along with [include]'s for additional features.
 
-Files are in config folder
+Files are in config folder.
 I placed my other board config files in here as well, such as the sht36 toolhead pcb. 
 As they are commented out in the printer.cfg they wont load. But since they are documented there, figured I may as well have the files available to view for users.
 Live Long and Prosper!
