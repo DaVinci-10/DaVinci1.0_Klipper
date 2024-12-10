@@ -1,7 +1,7 @@
 ***Note: I moved Files into the config folder. Please refresh git if you get file not found.
 
 This printer config was written by DaVinci10 on Klipper Discord(s) and can be reached there. Feel free to DM on either platform.
-This cfg is intended for a Xyz Printing Inc. DaVinci 1.0 3dPrinter. (not for 1.0A, 2.0, 2.0a, or AIO)
+This cfg is intended for a Xyz Printing Inc. DaVinci 1.0 3dPrinter. (I have 1.0 1.0a and 1.0Pro in theis repo, please use the appropriate config.
 
 *Notes: The Axis Corrdinate System has been reversed to conform to industry norm. 
 This makes 0x, 0y located @front-left of the build plate.
