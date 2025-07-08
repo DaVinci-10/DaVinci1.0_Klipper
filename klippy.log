@@ -1,3 +1,13 @@
+Starting Klippy...
+Args: ['/home/pi/klipper/klippy/klippy.py', '/home/pi/printer_data/config/printer.cfg', '-I', '/home/pi/printer_data/comms/klippy.serial', '-l', '/home/pi/printer_data/logs/klippy.log', '-a', '/home/pi/printer_data/comms/klippy.sock']
+Git version: 'v0.13.0-154-g9346ad191-dirty'
+Untracked files: klippy/extras/gcode_shell_command.py
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper
+CPU: 6 core Intel(R) Core(TM) i5-8500T CPU @ 2.10GHz
+Python: '3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]'
+Start printer at Tue Jul  8 13:36:47 2025 (1751999807.8 456078.4)
 ===== Config file =====
 [virtual_sdcard]
 path = /home/pi/printer_data/gcodes
@@ -1593,24 +1603,71 @@ max_x = 321.44
 min_y = 36.5
 max_y = 327.41999999999996
 =======================
-extruder: pressure_advance: 0.100000
-pressure_advance_smooth_time: 0.040000
-Loaded MCU 'klipperhost' 127 commands (v0.13.0-50-gf2b27d17b / gcc: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0 binutils: (GNU Binutils for Ubuntu) 2.42)
-MCU 'klipperhost' config: ADC_MAX=4095 CLOCK_FREQ=50000000 MCU=linux PCA9685_MAX=4096 PWM_MAX=32768 STATS_SUMSQ_BASE=256 STEPPER_STEP_BOTH_EDGE=1
-Configured MCU 'klipperhost' (1024 moves)
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+webhooks client 131345552078464: New connection
+webhooks client 131345552078464: Client info {'program': 'Moonraker', 'version': 'v0.9.3-85-g6ff9a7c'}
+mcu 'mcu': got {'oid': 12, 'next_clock': 2651664384, 'value': 7840, '#name': 'analog_in_state', '#sent_time': 456081.12694830704, '#receive_time': 456081.139332454}
+mcu 'mcu': got {'oid': 21, 'next_clock': 2653104384, 'value': 7854, '#name': 'analog_in_state', '#sent_time': 456081.191227187, '#receive_time': 456081.235132768}
+mcu 'mcu': got {'oid': 12, 'next_clock': 2656464384, 'value': 7840, '#name': 'analog_in_state', '#sent_time': 456081.382465519, '#receive_time': 456081.442650116}
 Loaded MCU 'mcu' 121 commands (v0.13.0-50-gf2b27d17b / gcc: (GCC) 7.3.0 binutils: (GNU Binutils) 2.26.20160125)
 MCU 'mcu' config: ADC_MAX=1023 BUS_PINS_spi=PB3,PB2,PB1 BUS_PINS_twi=PD0,PD1 CLOCK_FREQ=16000000 MCU=atmega2560 PWM_MAX=255 RECEIVE_WINDOW=192 RESERVE_PINS_serial=PE0,PE1 SERIAL_BAUD=250000 STATS_SUMSQ_BASE=256 STEPPER_OPTIMIZED_UNSTEP=40 STEPPER_STEP_BOTH_EDGE=1
+mcu 'klipperhost': Starting connect
+mcu 'mcu': got {'oid': 21, 'next_clock': 2657904384, 'value': 7855, '#name': 'analog_in_state', '#sent_time': 456081.461710312, '#receive_time': 456081.538373038}
+mcu 'mcu': got {'oid': 12, 'next_clock': 2661264384, 'value': 7840, '#name': 'analog_in_state', '#sent_time': 456081.461710312, '#receive_time': 456081.746022434}
+mcu 'mcu': got {'oid': 21, 'next_clock': 2662704384, 'value': 7855, '#name': 'analog_in_state', '#sent_time': 456081.461710312, '#receive_time': 456081.84185220697}
+Loaded MCU 'klipperhost' 127 commands (v0.13.0-50-gf2b27d17b / gcc: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0 binutils: (GNU Binutils for Ubuntu) 2.42)
+MCU 'klipperhost' config: ADC_MAX=4095 CLOCK_FREQ=50000000 MCU=linux PCA9685_MAX=4096 PWM_MAX=32768 STATS_SUMSQ_BASE=256 STEPPER_STEP_BOTH_EDGE=1
 Configured MCU 'mcu' (599 moves)
-toolhead: max_velocity: 300.000000
-max_accel: 500.000000
-minimum_cruise_ratio: 0.500000
-square_corner_velocity: 8.000000
-Args: ['/home/pi/klipper/klippy/klippy.py', '/home/pi/printer_data/config/printer.cfg', '-I', '/home/pi/printer_data/comms/klippy.serial', '-l', '/home/pi/printer_data/logs/klippy.log', '-a', '/home/pi/printer_data/comms/klippy.sock']
-Git version: 'v0.13.0-154-g9346ad191-dirty'
-Untracked files: klippy/extras/gcode_shell_command.py
-Branch: master
-Remote: origin
-Tracked URL: https://github.com/Klipper3d/klipper
-CPU: 6 core Intel(R) Core(TM) i5-8500T CPU @ 2.10GHz
-Python: '3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]'
-webhooks client 127464569467680: {'program': 'Moonraker', 'version': 'v0.9.3-85-g6ff9a7c'}
+Configured MCU 'klipperhost' (1024 moves)
+Starting heater checks for heater_bed
+bed_mesh: generated points
+Index |  Tool Adjusted  |   Probe
+  0   | (65.0, 46.0)    | (31.5, 36.5)
+  1   | (137.5, 46.0)   | (104.0, 36.5)
+  2   | (210.0, 46.0)   | (176.5, 36.5)
+  3   | (282.5, 46.0)   | (249.0, 36.5)
+  4   | (355.0, 46.0)   | (321.5, 36.5)
+  5   | (355.0, 118.8)  | (321.5, 109.2)
+  6   | (282.5, 118.8)  | (249.0, 109.2)
+  7   | (210.0, 118.8)  | (176.5, 109.2)
+  8   | (137.5, 118.8)  | (104.0, 109.2)
+  9   | (65.0, 118.8)   | (31.5, 109.2)
+  10  | (65.0, 191.5)   | (31.5, 182.0)
+  11  | (137.5, 191.5)  | (104.0, 182.0)
+  12  | (210.0, 191.5)  | (176.5, 182.0)
+  13  | (282.5, 191.5)  | (249.0, 182.0)
+  14  | (355.0, 191.5)  | (321.5, 182.0)
+  15  | (355.0, 264.2)  | (321.5, 254.8)
+  16  | (282.5, 264.2)  | (249.0, 254.8)
+  17  | (210.0, 264.2)  | (176.5, 254.8)
+  18  | (137.5, 264.2)  | (104.0, 254.8)
+  19  | (65.0, 264.2)   | (31.5, 254.8)
+  20  | (65.0, 337.0)   | (31.5, 327.5)
+  21  | (137.5, 337.0)  | (104.0, 327.5)
+  22  | (210.0, 337.0)  | (176.5, 327.5)
+  23  | (282.5, 337.0)  | (249.0, 327.5)
+  24  | (355.0, 337.0)  | (321.5, 327.5)
+bed_mesh: zero_reference_position is (208.50, 184.50)
+Starting heater checks for extruder
+Stats 456083.0: gcodein=0  mcu: mcu_awake=0.029 mcu_task_avg=0.000150 mcu_task_stddev=0.000096 bytes_write=1810 bytes_read=4879 bytes_retransmit=19 bytes_invalid=15 send_seq=142 receive_seq=139 retransmit_seq=57 srtt=0.014 rttvar=0.001 rto=0.025 ready_bytes=1243 upcoming_bytes=740 freq=16001012 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000000 mcu_task_stddev=0.000000 bytes_write=852 bytes_read=4958 bytes_retransmit=0 bytes_invalid=0 send_seq=103 receive_seq=103 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000495 adj=50003443  heater_bed: target=0 temp=23.3 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.12 cputime=2.408 memavail=15064356 print_time=180287.669 buffer_time=0.196 print_stall=0 extruder: target=0 temp=22.5 pwm=0.000
+webhooks: registering remote method 'shutdown_machine' for connection id: 131345552078464
+webhooks: registering remote method 'reboot_machine' for connection id: 131345552078464
+webhooks: registering remote method 'pause_job_queue' for connection id: 131345552078464
+webhooks: registering remote method 'start_job_queue' for connection id: 131345552078464
+webhooks: registering remote method 'timelapse_newframe' for connection id: 131345552078464
+webhooks: registering remote method 'timelapse_saveFrames' for connection id: 131345552078464
+webhooks: registering remote method 'timelapse_render' for connection id: 131345552078464
+Stats 456084.0: gcodein=0  mcu: mcu_awake=0.029 mcu_task_avg=0.000150 mcu_task_stddev=0.000096 bytes_write=4023 bytes_read=5213 bytes_retransmit=19 bytes_invalid=15 send_seq=184 receive_seq=184 retransmit_seq=57 srtt=0.014 rttvar=0.002 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=16000781 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000000 mcu_task_stddev=0.000000 bytes_write=858 bytes_read=4974 bytes_retransmit=0 bytes_invalid=0 send_seq=104 receive_seq=104 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50001384 adj=49939995  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.12 cputime=2.438 memavail=15067352 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
+Stats 456085.0: gcodein=0  mcu: mcu_awake=0.029 mcu_task_avg=0.000150 mcu_task_stddev=0.000096 bytes_write=4052 bytes_read=5318 bytes_retransmit=19 bytes_invalid=15 send_seq=186 receive_seq=186 retransmit_seq=57 srtt=0.013 rttvar=0.003 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=16000667 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000000 mcu_task_stddev=0.000000 bytes_write=864 bytes_read=4990 bytes_retransmit=0 bytes_invalid=0 send_seq=105 receive_seq=105 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50001454 adj=49954191  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.12 cputime=2.455 memavail=15076404 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
+Stats 456086.0: gcodein=0  mcu: mcu_awake=0.029 mcu_task_avg=0.000150 mcu_task_stddev=0.000096 bytes_write=4058 bytes_read=5432 bytes_retransmit=19 bytes_invalid=15 send_seq=187 receive_seq=187 retransmit_seq=57 srtt=0.012 rttvar=0.005 rto=0.030 ready_bytes=0 upcoming_bytes=0 freq=16000662 klipperhost: mcu_awake=0.003 mcu_task_avg=0.000018 mcu_task_stddev=0.000012 bytes_write=870 bytes_read=5020 bytes_retransmit=0 bytes_invalid=0 send_seq=106 receive_seq=106 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50001307 adj=49966215  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.12 cputime=2.469 memavail=15061832 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
+Stats 456087.0: gcodein=0  mcu: mcu_awake=0.029 mcu_task_avg=0.000150 mcu_task_stddev=0.000096 bytes_write=4064 bytes_read=5546 bytes_retransmit=19 bytes_invalid=15 send_seq=188 receive_seq=188 retransmit_seq=57 srtt=0.011 rttvar=0.004 rto=0.028 ready_bytes=0 upcoming_bytes=0 freq=16000655 klipperhost: mcu_awake=0.003 mcu_task_avg=0.000018 mcu_task_stddev=0.000012 bytes_write=876 bytes_read=5036 bytes_retransmit=0 bytes_invalid=0 send_seq=107 receive_seq=107 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50001111 adj=49974244  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.11 cputime=2.480 memavail=15042956 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
+Stats 456088.0: gcodein=0  mcu: mcu_awake=0.071 mcu_task_avg=0.000366 mcu_task_stddev=0.000481 bytes_write=4070 bytes_read=5661 bytes_retransmit=19 bytes_invalid=15 send_seq=189 receive_seq=189 retransmit_seq=57 srtt=0.012 rttvar=0.004 rto=0.027 ready_bytes=0 upcoming_bytes=0 freq=16000645 klipperhost: mcu_awake=0.003 mcu_task_avg=0.000018 mcu_task_stddev=0.000012 bytes_write=882 bytes_read=5052 bytes_retransmit=0 bytes_invalid=0 send_seq=108 receive_seq=108 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000952 adj=49980098  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.11 cputime=2.491 memavail=15023840 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.5 pwm=0.000
+Stats 456089.0: gcodein=0  mcu: mcu_awake=0.071 mcu_task_avg=0.000366 mcu_task_stddev=0.000481 bytes_write=4076 bytes_read=5775 bytes_retransmit=19 bytes_invalid=15 send_seq=190 receive_seq=190 retransmit_seq=57 srtt=0.011 rttvar=0.005 rto=0.030 ready_bytes=0 upcoming_bytes=0 freq=16000641 klipperhost: mcu_awake=0.003 mcu_task_avg=0.000018 mcu_task_stddev=0.000012 bytes_write=888 bytes_read=5068 bytes_retransmit=0 bytes_invalid=0 send_seq=109 receive_seq=109 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000902 adj=49984517  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.11 cputime=2.502 memavail=15030292 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.6 pwm=0.000
+Stats 456090.0: gcodein=0  mcu: mcu_awake=0.071 mcu_task_avg=0.000366 mcu_task_stddev=0.000481 bytes_write=4096 bytes_read=5894 bytes_retransmit=19 bytes_invalid=15 send_seq=192 receive_seq=192 retransmit_seq=57 srtt=0.011 rttvar=0.004 rto=0.026 ready_bytes=0 upcoming_bytes=0 freq=16000635 klipperhost: mcu_awake=0.003 mcu_task_avg=0.000018 mcu_task_stddev=0.000012 bytes_write=894 bytes_read=5084 bytes_retransmit=0 bytes_invalid=0 send_seq=110 receive_seq=110 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000891 adj=49988029  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.11 cputime=2.513 memavail=15041464 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.6 pwm=0.000
+Stats 456091.0: gcodein=0  mcu: mcu_awake=0.071 mcu_task_avg=0.000366 mcu_task_stddev=0.000481 bytes_write=4102 bytes_read=5994 bytes_retransmit=19 bytes_invalid=15 send_seq=193 receive_seq=193 retransmit_seq=57 srtt=0.011 rttvar=0.004 rto=0.026 ready_bytes=0 upcoming_bytes=0 freq=16000641 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000004 mcu_task_stddev=0.000008 bytes_write=900 bytes_read=5112 bytes_retransmit=0 bytes_invalid=0 send_seq=111 receive_seq=111 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000863 adj=49990764  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.11 cputime=2.524 memavail=15045012 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.6 pwm=0.000
+Stats 456092.0: gcodein=0  mcu: mcu_awake=0.071 mcu_task_avg=0.000366 mcu_task_stddev=0.000481 bytes_write=4108 bytes_read=6108 bytes_retransmit=19 bytes_invalid=15 send_seq=194 receive_seq=194 retransmit_seq=57 srtt=0.010 rttvar=0.005 rto=0.029 ready_bytes=0 upcoming_bytes=0 freq=16000629 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000004 mcu_task_stddev=0.000008 bytes_write=906 bytes_read=5128 bytes_retransmit=0 bytes_invalid=0 send_seq=112 receive_seq=112 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000836 adj=49992657  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.10 cputime=2.535 memavail=15027704 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
+Stats 456093.0: gcodein=0  mcu: mcu_awake=0.008 mcu_task_avg=0.000090 mcu_task_stddev=0.000073 bytes_write=4142 bytes_read=6245 bytes_retransmit=19 bytes_invalid=15 send_seq=197 receive_seq=197 retransmit_seq=57 srtt=0.011 rttvar=0.003 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=16000627 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000004 mcu_task_stddev=0.000008 bytes_write=912 bytes_read=5144 bytes_retransmit=0 bytes_invalid=0 send_seq=113 receive_seq=113 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000726 adj=49994250  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.10 cputime=2.546 memavail=15038608 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.6 pwm=0.000
+Stats 456094.0: gcodein=0  mcu: mcu_awake=0.008 mcu_task_avg=0.000090 mcu_task_stddev=0.000073 bytes_write=4148 bytes_read=6345 bytes_retransmit=19 bytes_invalid=15 send_seq=198 receive_seq=198 retransmit_seq=57 srtt=0.011 rttvar=0.003 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=16000636 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000004 mcu_task_stddev=0.000008 bytes_write=918 bytes_read=5160 bytes_retransmit=0 bytes_invalid=0 send_seq=114 receive_seq=114 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000626 adj=49995026  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.10 cputime=2.557 memavail=15041360 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.6 pwm=0.000
+Stats 456095.0: gcodein=0  mcu: mcu_awake=0.008 mcu_task_avg=0.000090 mcu_task_stddev=0.000073 bytes_write=4154 bytes_read=6459 bytes_retransmit=19 bytes_invalid=15 send_seq=199 receive_seq=199 retransmit_seq=57 srtt=0.010 rttvar=0.004 rto=0.027 ready_bytes=0 upcoming_bytes=0 freq=16000631 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000004 mcu_task_stddev=0.000008 bytes_write=924 bytes_read=5176 bytes_retransmit=0 bytes_invalid=0 send_seq=115 receive_seq=115 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000628 adj=49995490  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.10 cputime=2.568 memavail=15055124 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
+Stats 456096.0: gcodein=0  mcu: mcu_awake=0.008 mcu_task_avg=0.000090 mcu_task_stddev=0.000073 bytes_write=4188 bytes_read=6583 bytes_retransmit=19 bytes_invalid=15 send_seq=202 receive_seq=202 retransmit_seq=57 srtt=0.010 rttvar=0.003 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=16000627 klipperhost: mcu_awake=0.000 mcu_task_avg=0.000003 mcu_task_stddev=0.000006 bytes_write=930 bytes_read=5204 bytes_retransmit=0 bytes_invalid=0 send_seq=116 receive_seq=116 retransmit_seq=0 srtt=0.000 rttvar=0.000 rto=0.025 ready_bytes=0 upcoming_bytes=0 freq=50000637 adj=49996359  heater_bed: target=0 temp=23.5 pwm=0.000 klipperhost_temp: temp=27.8 sysload=0.10 cputime=2.579 memavail=15036176 print_time=180287.669 buffer_time=0.000 print_stall=0 extruder: target=0 temp=22.4 pwm=0.000
