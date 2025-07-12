@@ -4,8 +4,8 @@
 #include <Servo.h>
 
 // --- Configuration ---
-const char* ssid = "ITSME"; // <<-- REPLACE with your WiFi SSID
-const char* password = "NOTYOU"; // <<-- REPLACE with your WiFi password
+const char* ssid = "TMOBILE-8376"; // <<-- REPLACE with your WiFi SSID
+const char* password = "4280604032024"; // <<-- REPLACE with your WiFi password
 
 // Pin Definitions - NodeMCU D-series labels map to GPIO numbers
 #define DHT_PIN D7 // GPIO13 for DHT11 Data Line
@@ -50,7 +50,7 @@ void setup() {
     Serial.begin(115200);
     delay(100);
 
-    Serial.println("\nStarting Home Monitoring System...");
+    Serial.println("\nStarting DaVinci Filament Dryer System...");
 
     // Initialize Pins
     pinMode(MQ2_DOUT_PIN, INPUT); // MQ2 Digital Output
@@ -140,13 +140,13 @@ void readSensors() {
 
     // Read MQ2 Analog Value
     mq2AnalogValue = analogRead(MQ2_AOUT_PIN); // Reads the scaled value via voltage divider
-    Serial.print("MQ2 Analog: ");
+    Serial.print("MQ2 Analog (ppm): ");
     Serial.println(mq2AnalogValue);
 
     // Read MQ2 Digital Value
     mq2DigitalThreshold = digitalRead(MQ2_DOUT_PIN);
     Serial.print("MQ2 Digital: ");
-    Serial.println(mq2DigitalThreshold ? "Detected" : "Clear");
+    Serial.println(mq2DigitalThreshold ? "Smoke or VOC's Detected!" : "No Smoke or VOC's Detected");
 }
 
 void controlHeaterServo() {
@@ -247,9 +247,9 @@ void handleHeaterControl() {
 }
 
 String generateHtmlPage() {
-    String html = "<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'><title>Home Monitor</title>";
+    String html = "<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'><title>Filament Monitor</title>";
     html += "<meta charset=\"UTF-8\">"; // <-- Add meta charset tag for correct character display
-    html += "<meta http-equiv='refresh' content='30'>"; // Auto-refresh every 30 seconds
+    html += "<meta http-equiv='refresh' content='20'>"; // Auto-refresh every 20 seconds
     html += "<style>body { font-family: Arial, sans-serif; margin: 20px; }";
     html += ".container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }";
     html += "h1 { text-align: center; color: #333; }";
@@ -258,13 +258,12 @@ String generateHtmlPage() {
     html += ".controls button, .controls input[type='submit'] { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; font-size: 1em; }";
     html += ".controls button:hover, .controls input[type='submit']{ background-color: #218838; }";
     html += ".controls input[type='number'] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 80px; }";
-    html += "</style></head><body><div class='container'><h1>Home Monitoring & Heater Control</h1>";
-
+    html += "</style></head><body><div class='container'><h1>DaVinci Filament Dryer - Monitoring & Heater Control</h1>";
     html += "<p>Current Status:</p><ul class='sensor-data'>";
     html += "<li>Temperature: <span>" + String(currentTemperature, 2) + " °C / " + String(celsiusToFahrenheit(currentTemperature), 2) + " °F</span></li>";
     html += "<li>Humidity: <span>" + String(currentHumidity, 2) + " %</span></li>";
-    html += "<li>Gas Sensor (Analog): <span>" + String(mq2AnalogValue) + "</span></li>";
-    html += String("<li>Gas Sensor (Digital): <span>") + (mq2DigitalThreshold ? "Detected" : "Clear") + "</span></li>";
+    html += "<li>Gas Sensor (Analog (ppm)): <span>" + String(mq2AnalogValue) + "</span></li>";
+    html += String("<li>Gas Sensor (Digital): <span>") + (mq2DigitalThreshold ? "Smoke or VOC's Detected!" : "No Smoke or VOC's Detected") + "</span></li>";
     html += String("<li>Heater Mode: <span>") + (heaterMode == OFF ? "OFF" : (heaterMode == ON ? "ON" : "AUTO")) + "</span></li>";
     // Servo position now reflects the Heater Mode
     html += "<li>Heater Position: <span>" + String(currentServoPosition) + "° (" + (heaterMode == OFF ? "OFF" : (heaterMode == ON ? "ON" : "AUTO")) + ")</span></li>";
