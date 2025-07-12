@@ -4,8 +4,8 @@
 #include <Servo.h>
 
 // --- Configuration ---
-const char* ssid = "TMOBILE-8376"; // <<-- REPLACE with your WiFi SSID
-const char* password = "4280604032024"; // <<-- REPLACE with your WiFi password
+const char* ssid = "ITSME"; // <<-- REPLACE with your WiFi SSID
+const char* password = "NOTYOU"; // <<-- REPLACE with your WiFi password
 
 // Pin Definitions - NodeMCU D-series labels map to GPIO numbers
 #define DHT_PIN D7 // GPIO13 for DHT11 Data Line
