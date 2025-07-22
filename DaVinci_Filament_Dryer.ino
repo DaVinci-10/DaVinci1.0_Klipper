@@ -43,9 +43,10 @@ void handleHeaterControl();
 String getSensorDataJson();
 void readSensors();
 void controlHeaterServo();
-String generateHtmlPage();
+void streamHtmlPage(WiFiClient& client); // Modified to take WiFiClient reference
 float celsiusToFahrenheit(float celsius); // Prototype for new helper function
 float fahrenheitToCelsius(float fahrenheit); // Prototype for new helper function
+
 void setup() {
     Serial.begin(115200);
     delay(100);
@@ -196,7 +197,17 @@ String getSensorDataJson() {
 }
 
 void handleRoot() {
-    server.send(200, "text/html; charset=UTF-8", generateHtmlPage()); // <-- Set Content-Type header with UTF-8
+    // Get the client connection object
+    WiFiClient client = server.client();
+
+    // Send HTTP headers
+    client.println("HTTP/1.1 200 OK");
+    client.println("Content-Type: text/html; charset=UTF-8");
+    client.println("Connection: close"); // Indicate that the connection will be closed after this response
+    client.println(); // Blank line separates headers from content
+
+    // Stream the HTML content
+    streamHtmlPage(client);
 }
 
 void handleHeaterControl() {
@@ -236,59 +247,120 @@ void handleHeaterControl() {
             Serial.print(newTempF);
             Serial.print(" °F (");
             Serial.print(desiredTemperature);
-            Serial.println(" °C)");
+            Serial.print(" °C)");
+            Serial.println();
         } else {
             Serial.println("Invalid Fahrenheit temperature value received.");
         }
     }
-    // Redirect back to the root page after control action
-    server.sendHeader("Location", "/", true); // Send Location header to redirect
-    server.send(302, "text/plain", ""); // Send 302 Found status with empty body
+    // Send a simple OK response.
+    server.send(200, "text/plain", "OK");
 }
 
-String generateHtmlPage() {
-    String html = "<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'><title>Filament Monitor</title>";
-    html += "<meta charset=\"UTF-8\">"; // <-- Add meta charset tag for correct character display
-    html += "<meta http-equiv='refresh' content='20'>"; // Auto-refresh every 20 seconds
-    html += "<style>body { font-family: Arial, sans-serif; margin: 20px; }";
-    html += ".container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }";
-    html += "h1 { text-align: center; color: #333; }";
-    html += "p { font-size: 1.1em; line-height: 1.6; }";
-    html += ".sensor-data span { font-weight: bold; color: #007bff; }";
-    html += ".controls button, .controls input[type='submit'] { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; font-size: 1em; }";
-    html += ".controls button:hover, .controls input[type='submit']{ background-color: #218838; }";
-    html += ".controls input[type='number'] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 80px; }";
-    html += "</style></head><body><div class='container'><h1>DaVinci Filament Dryer - Monitoring & Heater Control</h1>";
-    html += "<p>Current Status:</p><ul class='sensor-data'>";
-    html += "<li>Temperature: <span>" + String(currentTemperature, 2) + " °C / " + String(celsiusToFahrenheit(currentTemperature), 2) + " °F</span></li>";
-    html += "<li>Humidity: <span>" + String(currentHumidity, 2) + " %</span></li>";
-    html += "<li>Gas Sensor (Analog (ppm)): <span>" + String(mq2AnalogValue) + "</span></li>";
-    html += String("<li>Gas Sensor (Digital): <span>") + (mq2DigitalThreshold ? "Smoke or VOC's Detected!" : "No Smoke or VOC's Detected") + "</span></li>";
-    html += String("<li>Heater Mode: <span>") + (heaterMode == OFF ? "OFF" : (heaterMode == ON ? "ON" : "AUTO")) + "</span></li>";
-    // Servo position now reflects the Heater Mode
-    html += "<li>Heater Position: <span>" + String(currentServoPosition) + "° (" + (heaterMode == OFF ? "OFF" : (heaterMode == ON ? "ON" : "AUTO")) + ")</span></li>";
-    html += "</ul>";
+// Function to stream HTML content directly to the client
+void streamHtmlPage(WiFiClient& client) {
+    // Start HTML document
+    client.println("<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'><title>Filament Monitor</title>");
+    client.println("<meta charset=\"UTF-8\">");
+    client.println("<style>");
+    client.println("body { font-family: 'Inter', Arial, sans-serif; margin: 20px; background-color: #f4f7f6; color: #333; }");
+    client.println(".container { max-width: 600px; margin: auto; padding: 25px; border: 1px solid #e0e0e0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); background-color: #ffffff; }");
+    client.println("h1 { text-align: center; color: #2c3e50; margin-bottom: 25px; }");
+    client.println("p { font-size: 1.1em; line-height: 1.6; margin-bottom: 10px; }");
+    client.println(".sensor-data ul { list-style: none; padding: 0; margin-top: 15px; }");
+    client.println(".sensor-data li { background-color: #e9f5f5; padding: 10px 15px; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }");
+    client.println(".sensor-data li strong { color: #34495e; font-weight: 600; }");
+    client.println(".sensor-data li span { font-weight: bold; color: #2a9d8f; font-size: 1.1em; }");
+    client.println(".controls { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; }");
+    client.println(".controls button, .controls input[type='submit'] { ");
+    client.println("background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; margin: 8px; font-size: 1.05em; transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 8px rgba(0,0,0,0.1); ");
+    client.println("}");
+    client.println(".controls button:hover, .controls input[type='submit']:hover { background-color: #45a049; transform: translateY(-2px); }");
+    client.println(".controls button:active, .controls input[type='submit']:active { transform: translateY(0); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }");
+    client.println(".controls input[type='number'] { padding: 10px; border: 1px solid #ccc; border-radius: 8px; width: 100px; margin-right: 10px; font-size: 1em; }");
+    client.println(".current-temp-display { background-color: #f0f8ff; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-size: 1.1em; color: #2c3e50; }");
+    client.println(".current-temp-display span { font-weight: bold; color: #e76f51; font-size: 1.2em; }");
+    client.println(".last-updated { font-size: 0.9em; color: #7f8c8d; text-align: center; margin-top: 20px; }");
+    client.println("</style></head><body><div class='container'><h1>DaVinci Filament Dryer - Monitoring & Heater Control</h1>");
+    client.println("<p>Current Status:</p><ul class='sensor-data'>");
+    client.println("<li><strong>Temperature:</strong> <span id='temperature'>--</span></li>");
+    client.println("<li><strong>Humidity:</strong> <span id='humidity'>--</span></li>");
+    client.println("<li><strong>Gas Sensor (Analog):</strong> <span id='mq2Analog'>--</span></li>");
+    client.println("<li><strong>Gas Sensor (Digital):</strong> <span id='mq2Digital'>--</span></li>");
+    client.println("<li><strong>Heater Mode:</strong> <span id='heaterMode'>--</span></li>");
+    client.println("<li><strong>Heater Position:</strong> <span id='servoPosition'>--</span></li>");
+    client.println("</ul>");
 
-    html += "<p>Heater Controls:</p><div class='controls'>";
-    html += "<button onclick=\"window.location.href='/control?mode=off'\">OFF</button>";
-    html += "<button onclick=\"window.location.href='/control?mode=on'\">ON</button>";
-    html += "<button onclick=\"window.location.href='/control?mode=auto'\">AUTO</button><br>";
+    client.println("<div class='current-temp-display'>");
+    client.println("Current Desired Temp: <span id='desiredTemperature'>--</span>");
+    client.println("</div>");
 
-    // Display Current Set Temperature separately
-    html += "<p>Current Desired Temp: <span>" + String(desiredTemperature, 1) + " °C / " + String(celsiusToFahrenheit(desiredTemperature), 1) + " °F</span></p>";
+    client.println("<p class='last-updated'>Last Updated: <span id='lastUpdated'>--</span></p>");
 
-    // Input for setting desired temperature in Celsius
-    html += "<form action='/control' method='get'>";
-    html += "Set New Temp (C): <input type='number' name='tempC' placeholder='Enter new temp' step='0.1' min='0' max='150'>"; // Removed 'value' attribute
-    html += "<input type='submit' value='Set C'>";
-    html += "</form>";
+    client.println("<p>Heater Controls:</p><div class='controls'>");
+    client.println("<button onclick=\"sendControl('mode', 'off')\">OFF</button>");
+    client.println("<button onclick=\"sendControl('mode', 'on')\">ON</button>");
+    client.println("<button onclick=\"sendControl('mode', 'auto')\">AUTO</button><br>");
 
-    // Input for setting desired temperature in Fahrenheit
-    html += "<form action='/control' method='get'>";
-    html += "Set New Temp (F): <input type='number' name='tempF' placeholder='Enter new temp' step='0.1' min='32' max='302'>"; // Removed 'value' attribute
-    html += "<input type='submit' value='Set F'>";
-    html += "</form>";
+    client.println("<form onsubmit=\"sendControl('tempC', document.getElementById('tempCInput').value); return false;\">");
+    client.println("Set New Temp (C): <input type='number' id='tempCInput' placeholder='Enter new temp' step='0.1' min='0' max='150'>");
+    client.println("<input type='submit' value='Set C'>");
+    client.println("</form>");
 
-    html += "</div></div></body></html>";
-    return html;
+    client.println("<form onsubmit=\"sendControl('tempF', document.getElementById('tempFInput').value); return false;\">");
+    client.println("Set New Temp (F): <input type='number' id='tempFInput' placeholder='Enter new temp' step='0.1' min='32' max='302'>");
+    client.println("<input type='submit' value='Set F'>");
+    client.println("</form>");
+
+    client.println("</div></div>"); // Close controls and container divs
+
+    // --- JavaScript for AJAX updates ---
+    client.println("<script>");
+    client.println("console.log('Script loaded.');");
+    client.println("function fetchSensorData() {");
+    client.println("  console.log('Attempting to fetch sensor data...');");
+    client.println("  fetch('/sensordata')");
+    client.println("    .then(response => {");
+    client.println("      console.log('Fetch response received:', response.status, response.statusText);");
+    client.println("      if (!response.ok) {");
+    client.println("        throw new Error(`HTTP error! status: ${response.status}`);");
+    client.println("      }");
+    client.println("      return response.json();");
+    client.println("    })");
+    client.println("    .then(data => {");
+    client.println("      console.log('Sensor data received:', data);");
+    client.println("      document.getElementById('temperature').innerText = data.temperatureC.toFixed(2) + ' °C / ' + data.temperatureF.toFixed(2) + ' °F';");
+    client.println("      document.getElementById('humidity').innerText = data.humidity.toFixed(2) + ' %';");
+    client.println("      document.getElementById('mq2Analog').innerText = data.mq2Analog;");
+    client.println("      document.getElementById('mq2Digital').innerText = data.mq2Digital === 'true' ? 'Smoke or VOC\\'s Detected!' : 'No Smoke or VOC\\'s Detected';");
+    client.println("      document.getElementById('heaterMode').innerText = data.heaterMode;");
+    client.println("      document.getElementById('servoPosition').innerText = data.servoPosition + '° (' + data.heaterMode + ')';");
+    client.println("      document.getElementById('desiredTemperature').innerText = data.desiredTemperatureC.toFixed(1) + ' °C / ' + data.desiredTemperatureF.toFixed(1) + ' °F';");
+    client.println("      document.getElementById('lastUpdated').innerText = new Date().toLocaleTimeString();");
+    client.println("    })");
+    client.println("    .catch(error => console.error('Error fetching sensor data:', error));");
+    client.println("}");
+
+    client.println("function sendControl(param, value) {");
+    client.println("  console.log(`Sending control command: ${param}=${value}`);");
+    client.println("  fetch(`/control?${param}=${value}`)");
+    client.println("    .then(response => {");
+    client.println("      if (response.ok) {");
+    client.println("        console.log(`Control command sent successfully.`);");
+    client.println("        fetchSensorData(); // Refresh data immediately after sending control command");
+    client.println("      } else {");
+    client.println("        console.error('Failed to send control command. Response status:', response.status);");
+    client.println("      }");
+    client.println("    })");
+    client.println("    .catch(error => console.error('Error sending control command:', error));");
+    client.println("}");
+
+    client.println("window.onload = function() {");
+    client.println("  console.log('Window loaded. Initial data fetch...');");
+    client.println("  fetchSensorData(); // Initial fetch when page loads");
+    client.println("  setInterval(fetchSensorData, " + String(READ_SENSOR_INTERVAL) + "); // Fetch data every READ_SENSOR_INTERVAL milliseconds");
+    client.println("};");
+    client.println("</script>");
+    client.println("</body></html>");
+    // client.stop() is handled by the server after handleRoot returns
 }
